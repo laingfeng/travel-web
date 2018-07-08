@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:fragment="common-header">
+
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+
+    <title>旅游管理系统后台</title>
+
+    <link rel="stylesheet" type="text/css" href="/css/bootstrap.css"/>
+    <link rel="stylesheet" type="text/css" href="/css/theme.css"/>
+   <!-- <link rel="stylesheet" href="/css/font-awesome/css/font-awesome.css"/>-->
+
+    <script src="/js/jquery.js"></script>
+
+
+    <!-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>-->
+    <script src="/js/bootstrap.js"></script>
+
+    <link rel="stylesheet" href="/css/bootstrap-switch.css" />
+    <script src="/js/bootstrap-switch.js"></script>
+
+    <style type="text/css">
+        #line-chart {
+            height:300px;
+            width:800px;
+            margin: 0px auto;
+            margin-top: 1em;
+        }
+        .brand { font-family: georgia, serif; }
+        .brand .first {
+            color: #ccc;
+            font-style: italic;
+        }
+        .brand .second {
+            color: #fff;
+            font-weight: bold;
+        }
+      /*  .change{
+            background:rgb(139,87,40);
+            background-image: url('../images/timg8.jpg');
+            background-position: initial initial;
+            background-repeat: initial initial;
+            margin: 0px;
+            padding: 0px;
+        }*/
+    </style>
+
+</head>
+<body class="change">
+
+
+
+<div th:replace="oprate/header :: body-top-menue"/>
+
+<div th:replace="oprate/left :: body-left-menue"/>
+
+
+<!-- 内容 开始 -->
+<div class="content">
+
+    <!-- 提示框1 -->
+    <div id="myModal2" class="modal hide fade">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>警告</h3>
+        </div>
+        <div  class="modal-body">
+            <p>你确定要删除吗？</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn"  data-dismiss="modal" aria-hidden="true">关闭</a>
+            <a id="delbtn2"  href="#" class="btn btn-primary"> 确  认</a>
+        </div>
+    </div>
+    <!-- 提示框2 -->
+    <div id="addModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3>请输入航班：</h3>
+                </div>
+                <div  class="modal-body">
+                    <form id="form_data" >
+                        <div  class="form-group">
+                            <label for="flightnum" class="control-label">班次号:</label>
+                            <input type="text" name="flightnum" class="form-control" id="flightnum"/>
+                        </div>
+                        <div  class="form-group">
+                            <label for="flightprice" class="control-label">价格:</label>
+                            <input type="text" name="flightprice" class="form-control" id="flightprice"/>
+                        </div>
+
+                        <div  class="form-group">
+                            <label for="numseats" class="control-label">座位号:</label>
+                            <input type="text" name="numseats" class="form-control" id="numseats"/>
+                        </div>
+
+                       <div  class="form-group">
+                            <label for="flydate" class="control-label">出发时间:</label>
+                            <input type="text" name="flydate" class="form-control" id="flydate"/>
+                        </div>
+                        <div  class="form-group">
+                            <label for="flyfromcity" class="control-label">出发地:</label>
+                            <input type="text" name="flyfromcity" class="form-control" id="flyfromcity"/>
+                        </div>
+                        <div  class="form-group">
+                            <label for="flytocity" class="control-label">目的地:</label>
+                            <input type="text" name="flytocity" class="form-control" id="flytocity"/>
+                        </div>
+                        <div  class="form-group">
+                            <label for="flightnumavail" class="control-label">余票:</label>
+                            <input type="text" name="flightnumavail" class="form-control" id="flightnumavail"/>
+                            <input hidden="hidden" type="text" id="add-or-update" name="add-or-update" />
+                        </div>
+                        <!--         <div  class="form-group">
+                               <div  class="form-group">
+                                  <label for="password" class="control-label">password:</label>
+                                  <input type="text" name="password" class="form-control" id="password"/>
+                                  <input hidden="hidden" type="text" id="add-or-update" name="add-or-update" />
+                              </div>-->
+
+                    </form>
+                    <!---->
+                </div>
+                <div class="modal-footer">
+                    <a href="#" class="btn"  data-dismiss="modal" aria-hidden="true">取 消</a>
+                    <button  onclick="add_info()" class="btn btn-primary" id="false-commit">添 加</button>
+                    <span id="tip"> </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header">
+
+        <h1 class="page-title">航班</h1>
+    </div>
+
+    <ul class="breadcrumb">
+        <li><a href="/WirelessOrder/table.do?flag=table">航班</a> <span class="divider">/</span></li>
+        <li class="active">航班查询</li>
+    </ul>
+
+    <div class="container-fluid">
+        <div class="row-fluid">
+
+            <div class="row-fluid">
+
+                <div class="btn-toolbar">
+                    <a href="#addModal" onclick="clearInfo()" role="button" class="btn btn-primary" data-toggle="modal">
+                        <i class="icon-plus"></i> 添 加</a>
+                    <div class="btn-group">
+                    </div>
+                </div>
+
+            </div>
+            <div class="well">
+                <table class="table table-striped table-bordered bootstrap-datatable datatable">
+                    <thead>
+                    <tr>
+                        <th>班次号</th>
+                        <th>价格</th>
+                        <th>座位号</th>
+                        <th>出发时间</th>
+                        <th>出发地</th>
+                        <th>目的地</th>
+                        <th>余票</th>
+                        <th>操作</th>
+                        <th style="width: 26px;"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr data-th-each="flight : ${flightList}">
+                        <td data-th-text="${flight.flightnum}" >...</td>
+                        <td data-th-text=" ${#numbers.formatDecimal(flight.flightprice, 1, 2)}">...</td>
+                        <td data-th-text="${flight.numseats+'号'}">...</td>
+                        <td data-th-text=" ${flight.flydate!=null} ?${#dates.format(flight.flydate, 'yyyy-MM-dd HH:mm')}">...</td>
+                        <td data-th-text="${flight.flyfromcity}">...</td>
+                        <td data-th-text="${flight.flytocity}">...</td>
+                        <td data-th-text="${flight.flightnumavail+'张'}">...</td>
+                        <td>
+                            <button  th:id="${flight.flightnum}"  onclick="update(this)" class="btn btn-info"><i class="icon-edit icon-white"></i> 修改</button>
+
+                            <button  th:id="${flight.flightnum}"  onclick="del(this)"  class="btn btn-danger"><i class="icon-trash icon-white"></i> 删除</button>
+                        </td>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+            <div align="center">
+                <ul class="pagination ">
+
+                    <li ><a href="/WirelessOrder/table.do?flag=table">前一页</a></li>
+                    <li >
+                        <a href="/WirelessOrder/table.do?flag=table">本页</a>
+                    </li>
+                    <li ><a href="/WirelessOrder/table.do?flag=table">后一页</a></li>
+                </ul>
+                <!--    <c:if test="${pre=='yes'}">
+                        <li><a href="/WirelessOrder/table.do?flag=table&pageNow=${pNow-1}">前一页</a></li>
+                    </c:if>
+                    <c:forEach var="i" begin="1" end="${pageCount}">
+                        <li>
+                            <a href="/WirelessOrder/table.do?flag=table&pageNow=${i }">${i }</a>
+                        </li>
+                    </c:forEach>
+                    <c:if test="${next=='yes'}">
+                        <li><a href="/WirelessOrder/table.do?flag=table&pageNow=${pNow+1}">后一页</a></li>
+                    </c:if>-->
+            </div>
+            <footer>
+                <hr/>
+                <p class="pull-right">&copy; 2013.8 <a href="#" target="_blank"> shun_fzll</a></p>
+            </footer>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    function clearInfo () {
+        $("input.form-control").val("");
+        //因为添加和删除共用一个form表单，添加一个标志位
+        $("#add-or-update").val("insert");
+    }
+
+    function add_info()
+    {
+        var form_data = $("#form_data").serialize();
+        //alert($("#username").val())
+        //alert($("#add-or-update").val())
+        if ($("#add-or-update").val()=="update"){
+            var posturl="flight/update";
+        }
+        else if ($("#add-or-update").val()=="insert"){
+            var  posturl="flight/insert";
+        }
+        else{
+            return false;
+        }
+        // 异步提交数据到页面
+        $.ajax(
+            {
+                url: posturl,
+                data:form_data,
+                type: "post",
+                beforeSend:function()
+                {
+                    return true;
+                },
+                success:function(data)
+                {
+                    if(data > 0)
+                    {
+                        var msg = "添加";
+                        alert(msg + "OK！");
+                        location.reload();
+                    }
+                    else
+                    {
+                        alert('操作失败');
+                    }
+                },
+                error:function()
+                {
+                    alert('请求出错');
+                },
+                complete:function()
+                {
+                    //$('#acting_tips').hide();
+                }
+            });
+
+        return false;
+    }
+    // 编辑表单
+    function update(obj)
+
+    {
+        var updateid=$(obj).attr("id");
+        if(!updateid)
+        {
+            alert('Error！');
+            return false;
+        }
+        $.ajax(
+            {
+                url: "flight/beforUpdate",
+                data:{"flightnum":updateid},
+                type: "post",
+                beforeSend:function()
+                {
+                    // $("#tip").html("<span style='color:blue'>正在处理...</span>");
+                    return true;
+                },
+                success:function(data)
+                {
+                    if(data)
+                    {
+
+                        // 解析json数据
+                        var data = data;
+
+                        var data_obj = eval("("+data+")");
+                        /* $("#id").val(data_obj.id);*/
+
+                        $("#flightnum").val(data_obj.flightnum);
+                        $("#flightprice").val(data_obj.flightprice);
+                        $("#numseats").val(data_obj.numseats);
+                        $("#flydate").val(data_obj.flydate);
+                        $("#flyfromcity").val(data_obj.flyfromcity);
+                        $("#flytocity").val(data_obj.flytocity);
+                        $("#flightnumavail").val(data_obj.flightnumavail);
+
+                        // 将input元素设置为readonly
+                        //$('#username').attr("readonly","readonly")
+                        $("#add-or-update").val("update");
+                        $('#addModal').modal();
+                    }
+                    else
+                    {
+                        // $("#tip").html("<span style='color:red'>失败，请重试</span>");
+                        alert('操作失败');
+                    }
+                },
+                error:function()
+                {
+                    alert('请求出错');
+                },
+                complete:function()
+                {
+                    // $('#tips').hide();
+                }
+            });
+
+        return false;
+    }
+
+    function del(obj){
+        var deleteid=$(obj).attr("id");
+        if(!deleteid)
+        {
+            alert('Error！');
+            return false;
+        }
+        $.ajax(
+            {
+                url: "flight/delete",
+                data:{"flightnum":deleteid},
+                type: "post",
+                success:function(data)
+                {
+                    if(data>0)
+                    {
+                        var msg = "删除";
+                        alert(msg + "OK！");
+                        location.reload();
+                    }
+                    else
+                    {
+                        alert('操作失败');
+                    }
+                },
+                error:function()
+                {
+                    alert('请求出错');
+                },
+                complete:function()
+                {
+                }
+            });
+
+        return false;
+    }
+
+
+</script>
+</body>
+</html>

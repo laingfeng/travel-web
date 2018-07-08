@@ -1,0 +1,34 @@
+2018-02-10 16:34:10,407  INFO MainAplication:48 ---- Starting MainAplication on LAPTOP-BI462BS3 with PID 42048 (F:\lvyou\target\classes started by 凉风袭来 in F:\lvyou)
+2018-02-10 16:34:10,424 DEBUG MainAplication:51 ---- Running with Spring Boot v1.3.2.RELEASE, Spring v4.2.4.RELEASE
+2018-02-10 16:34:10,425  INFO MainAplication:666 ---- No active profile set, falling back to default profiles: default
+2018-02-10 16:34:13,840  INFO MainAplication:57 ---- Started MainAplication in 3.633 seconds (JVM running for 4.287)
+2018-02-10 16:34:24,348  INFO WebLogAspect:40 ---- url:/
+2018-02-10 16:34:24,349  INFO WebLogAspect:41 ---- IP:0:0:0:0:0:0:0:1
+2018-02-10 16:34:24,349  INFO WebLogAspect:42 ---- http_method:GET
+2018-02-10 16:34:24,351  INFO WebLogAspect:43 ---- class_method:com.liang.web.LoginController.welcome
+2018-02-10 16:34:24,353  INFO WebLogAspect:44 ---- Args:[]
+2018-02-10 16:34:24,357  INFO WebLogAspect:65 ---- RESPONSE : index
+2018-02-10 16:34:48,470  INFO WebLogAspect:40 ---- url:/login
+2018-02-10 16:34:48,471  INFO WebLogAspect:41 ---- IP:0:0:0:0:0:0:0:1
+2018-02-10 16:34:48,471  INFO WebLogAspect:42 ---- http_method:POST
+2018-02-10 16:34:48,472  INFO WebLogAspect:43 ---- class_method:com.liang.web.LoginController.userLogin
+2018-02-10 16:34:48,472  INFO WebLogAspect:44 ---- Args:[JourneyUser [Hash = -1056234195, userid=null, username=冯3, sex=null, age=null, identifyno=null, phone=null, password=123, serialVersionUID=1], {journeyUser=JourneyUser [Hash = -1056234195, userid=null, username=冯3, sex=null, age=null, identifyno=null, phone=null, password=123, serialVersionUID=1], org.springframework.validation.BindingResult.journeyUser=org.springframework.validation.BeanPropertyBindingResult: 0 errors}]
+2018-02-10 16:34:48,848 DEBUG selectByName:145 ---- ==>  Preparing: select userId, userName, sex, age, identifyNo, phone, password from journeyuser where userName = ? 
+2018-02-10 16:34:48,859 DEBUG selectByName:145 ---- ==> Parameters: 冯3(String)
+2018-02-10 16:34:48,912 DEBUG selectByName:145 ---- <==      Total: 1
+2018-02-10 16:34:48,914 DEBUG selectByName:145 ---- ==>  Preparing: select userId, userName, sex, age, identifyNo, phone, password from journeyuser where userName = ? 
+2018-02-10 16:34:48,915 DEBUG selectByName:145 ---- ==> Parameters: 冯3(String)
+2018-02-10 16:34:48,916 DEBUG selectByName:145 ---- <==      Total: 1
+2018-02-10 16:34:48,917  INFO WebLogAspect:65 ---- RESPONSE : userFront
+2018-02-10 16:34:53,432  INFO WebLogAspect:40 ---- url:/flight
+2018-02-10 16:34:53,433  INFO WebLogAspect:41 ---- IP:0:0:0:0:0:0:0:1
+2018-02-10 16:34:53,433  INFO WebLogAspect:42 ---- http_method:GET
+2018-02-10 16:34:53,433  INFO WebLogAspect:43 ---- class_method:com.liang.web.OrderControl.index
+2018-02-10 16:34:53,433  INFO WebLogAspect:44 ---- Args:[10, {}, org.apache.catalina.connector.RequestFacade@25a91178]
+2018-02-10 16:34:53,438 DEBUG selectByPrimaryKey:145 ---- ==>  Preparing: select userId, userName, sex, age, identifyNo, phone, password from journeyuser where userId = ? 
+2018-02-10 16:34:53,440 DEBUG selectByPrimaryKey:145 ---- ==> Parameters: 10(Integer)
+2018-02-10 16:34:53,512 DEBUG selectByPrimaryKey:145 ---- <==      Total: 1
+2018-02-10 16:34:53,513 DEBUG selectAll:145 ---- ==>  Preparing: select flightNum, flightPrice, numSeats, flightnumAvail, flyDate, flyfromCity, flytoCity from flight 
+2018-02-10 16:34:53,513 DEBUG selectAll:145 ---- ==> Parameters: 
+2018-02-10 16:34:53,518 DEBUG selectAll:145 ---- <==      Total: 6
+2018-02-10 16:34:53,519  INFO WebLogAspect:65 ---- RESPONSE : flight/flightInfo

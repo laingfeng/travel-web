@@ -1,0 +1,14 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header"/>
+
+<body>
+<h1>Error Handler</h1>
+
+<div th:text="${exception.url}" class="alert alert-warning"></div>
+<div th:text="${exception.message}" class="alert alert-danger"></div>
+<div th:text="${exception.code}" class="alert alert-warning"></div>
+<div th:text="${exception.data}" class="alert alert-danger"></div>
+
+<div th:replace="common/header :: body-bottom-scripts"/>
+</body>
+</html>

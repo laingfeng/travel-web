@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liang.dao.HotelMapper" >
+  <resultMap id="BaseResultMap" type="com.liang.model.Hotel" >
+    <id column="hotelNum" property="hotelnum" jdbcType="VARCHAR" />
+    <result column="hotelName" property="hotelname" jdbcType="VARCHAR" />
+    <result column="hotelCity" property="hotelcity" jdbcType="VARCHAR" />
+    <result column="hotelStar" property="hotelstar" jdbcType="VARCHAR" />
+    <result column="hotelPrice" property="hotelprice" jdbcType="INTEGER" />
+    <result column="hotelnumRooms" property="hotelnumrooms" jdbcType="INTEGER" />
+    <result column="HotelnumAvail" property="hotelnumavail" jdbcType="INTEGER" />
+    <result column="hotelConnectWay" property="hotelconnectway" jdbcType="VARCHAR" />
+    <result column="hotelPhone" property="hotelphone" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    hotelNum, hotelName, hotelCity, hotelStar, hotelPrice, hotelnumRooms, HotelnumAvail, 
+    hotelConnectWay, hotelPhone
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from hotel
+    where hotelNum = #{hotelnum,jdbcType=VARCHAR}
+  </select>
+
+ <!-- 新加-->
+  <select id="selectAll" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from hotel
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from hotel
+    where hotelNum = #{hotelnum,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.liang.model.Hotel" >
+    insert into hotel (hotelNum, hotelName, hotelCity, 
+      hotelStar, hotelPrice, hotelnumRooms, 
+      HotelnumAvail, hotelConnectWay, hotelPhone
+      )
+    values (#{hotelnum,jdbcType=VARCHAR}, #{hotelname,jdbcType=VARCHAR}, #{hotelcity,jdbcType=VARCHAR}, 
+      #{hotelstar,jdbcType=VARCHAR}, #{hotelprice,jdbcType=INTEGER}, #{hotelnumrooms,jdbcType=INTEGER}, 
+      #{hotelnumavail,jdbcType=VARCHAR}, #{hotelconnectway,jdbcType=VARCHAR}, #{hotelphone,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.liang.model.Hotel" >
+    insert into hotel
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hotelnum != null" >
+        hotelNum,
+      </if>
+      <if test="hotelname != null" >
+        hotelName,
+      </if>
+      <if test="hotelcity != null" >
+        hotelCity,
+      </if>
+      <if test="hotelstar != null" >
+        hotelStar,
+      </if>
+      <if test="hotelprice != null" >
+        hotelPrice,
+      </if>
+      <if test="hotelnumrooms != null" >
+        hotelnumRooms,
+      </if>
+      <if test="hotelnumavail != null" >
+        HotelnumAvail,
+      </if>
+      <if test="hotelconnectway != null" >
+        hotelConnectWay,
+      </if>
+      <if test="hotelphone != null" >
+        hotelPhone,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hotelnum != null" >
+        #{hotelnum,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelname != null" >
+        #{hotelname,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelcity != null" >
+        #{hotelcity,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelstar != null" >
+        #{hotelstar,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelprice != null" >
+        #{hotelprice,jdbcType=INTEGER},
+      </if>
+      <if test="hotelnumrooms != null" >
+        #{hotelnumrooms,jdbcType=INTEGER},
+      </if>
+      <if test="hotelnumavail != null" >
+        #{hotelnumavail,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelconnectway != null" >
+        #{hotelconnectway,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelphone != null" >
+        #{hotelphone,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liang.model.Hotel" >
+    update hotel
+    <set >
+      <if test="hotelname != null" >
+        hotelName = #{hotelname,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelcity != null" >
+        hotelCity = #{hotelcity,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelstar != null" >
+        hotelStar = #{hotelstar,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelprice != null" >
+        hotelPrice = #{hotelprice,jdbcType=INTEGER},
+      </if>
+      <if test="hotelnumrooms != null" >
+        hotelnumRooms = #{hotelnumrooms,jdbcType=INTEGER},
+      </if>
+      <if test="hotelnumavail != null" >
+        HotelnumAvail = #{hotelnumavail,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelconnectway != null" >
+        hotelConnectWay = #{hotelconnectway,jdbcType=VARCHAR},
+      </if>
+      <if test="hotelphone != null" >
+        hotelPhone = #{hotelphone,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where hotelNum = #{hotelnum,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liang.model.Hotel" >
+    update hotel
+    set hotelName = #{hotelname,jdbcType=VARCHAR},
+      hotelCity = #{hotelcity,jdbcType=VARCHAR},
+      hotelStar = #{hotelstar,jdbcType=VARCHAR},
+      hotelPrice = #{hotelprice,jdbcType=INTEGER},
+      hotelnumRooms = #{hotelnumrooms,jdbcType=INTEGER},
+      HotelnumAvail = #{hotelnumavail,jdbcType=INTEGER},
+      hotelConnectWay = #{hotelconnectway,jdbcType=VARCHAR},
+      hotelPhone = #{hotelphone,jdbcType=VARCHAR}
+    where hotelNum = #{hotelnum,jdbcType=VARCHAR}
+  </update>
+</mapper>

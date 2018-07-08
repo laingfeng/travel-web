@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header"/>
+<body roleId="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<head th:replace="common/header :: navbar"/>
+<div class="container main">
+    <div class="row">
+        <div class="col-lg-12">
+            <!--<h1 class="page-header">Dashboard</h1>-->
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+
+    <div class="table-responsive">
+        <table id="example" class="table table-bordered table-hover table-striped">
+            <thead>
+            <tr>
+                <th>宾馆号</th>
+                <th>宾馆名</th>
+                <th>城市</th>
+                <th>星级</th>
+                <th>房价</th>
+                <th>房间号</th>
+                <th>空余房间</th>
+                <th>客服</th>
+                <th>联系方式</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr data-th-each="hotel : ${hotelList}">
+                <td data-th-text="${hotel.hotelnum}" >...</td>
+                <td data-th-text="${hotel.hotelname}" >...</td>
+                <td data-th-text="${hotel.hotelcity}" >...</td>
+                <td data-th-text="${hotel.hotelstar}" >...</td>
+                <td data-th-text=" ${#numbers.formatDecimal(hotel.hotelprice, 1, 2)}">...</td>
+                <td data-th-text="${hotel.hotelnumrooms+'号'}">...</td>
+                <td data-th-text="${hotel.hotelnumavail+'间'}">...</td>
+                <td data-th-text="${hotel.hotelconnectway}" >...</td>
+                <td data-th-text="${hotel.hotelphone}" >...</td>
+                <td>
+                    <button  th:id="${hotel.hotelnum}" th:name="${user.userid}" onclick="order(this)" class="btn btn-info"><i class="icon-edit icon-white"></i> 预定</button>
+                </td>
+            </tr>
+            <!--  <tr data-th-each="user : ${userList}">
+                  <td data-th-text="${user.username}">...</td>
+                  <td data-th-text="${user.password}">...</td>
+                  <td data-th-text="${user.sex}">...</td>
+                  <td data-th-text="${user.email}">...</td>
+                  <td data-th-text="${user.address}">...</td>
+                  <td >.wdqdqw..</td>
+              </tr>-->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+<div th:replace="common/header :: body-bottom-scripts"/>
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable();
+    } );
+
+    function order(obj)
+    {
+        var updateid=$(obj).attr("id");
+        var userid=$(obj).attr("name");
+        if(!updateid)
+        {
+            alert('Error！');
+            return false;
+        }
+        // 异步提交数据到页面
+        $.ajax(
+            {
+                url: "/orderhotel",
+                data:{"hotelnum":updateid,"userid":userid},
+                type: "post",
+                beforeSend:function()
+                {
+                    return true;
+                },
+                success:function(data)
+                {
+                    if(data > 0)
+                    {
+                        var msg = "预定";
+                        alert(msg + "OK！");
+                        location.reload();
+                    }
+                    else
+                    {
+                        alert('操作失败');
+                    }
+                },
+                error:function()
+                {
+                    alert('请求出错');
+                },
+                complete:function()
+                {
+                    //$('#acting_tips').hide();
+                }
+            });
+
+        return false;
+    }
+</script>
+
+</body>
+</html>

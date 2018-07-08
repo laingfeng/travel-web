@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <div th:fragment="body-left-menue">
+    <div class="sidebar-nav" >
+        <form class="search form-inline">
+            <input type="text" placeholder="Search..."/>
+        </form>
+
+        <a href="#dashboard-menu" class="nav-header" data-toggle="collapse"><i class="icon-dashboard"></i>首页</a>
+
+        <a href="#table-menu" class="nav-header" data-toggle="collapse"><i class="icon-table"></i>航班
+        </a>
+        <ul id="table-menu" class="nav nav-list collapse in">
+            <li ><a href="/Order/flight(userid=${userid})">航班管理</a></li>
+        </ul>
+
+        <a href="#menu-menu" class="nav-header collapsed" data-toggle="collapse"><i class="icon-reorder"></i>客运
+        </a>
+        <ul id="menu-menu" class="nav nav-list collapse">
+            <li ><a href="/WirelessOrder/menu.do?flag=menu">客运管理</a></li>
+        </ul>
+
+        <a href="#order-menu" class="nav-header" data-toggle="collapse"><i class="icon-th-large"></i>酒店</a>
+        <ul id="order-menu" class="nav nav-list collapse">
+            <li ><a href="/WirelessOrder/order.do?flag=order">酒店管理</a></li>
+        </ul>
+        <a href="#order-menu" class="nav-header" data-toggle="collapse"><i class="icon-th-large"></i>权限</a>
+
+    </div>
+    </div>
+</head>
+</html>

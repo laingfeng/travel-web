@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <div th:fragment="body-top-menue" >
+        <div class="navbar"  >
+            <div class="navbar-inner">
+                <ul class="nav pull-right">
+
+                    <li id="fat-menu" class="dropdown">
+                        <a href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="icon-user"></i><span th:text="${localUser.username}"></span>
+                            <i class="icon-caret-down"></i>
+                        </a>
+
+                        <ul class="dropdown-menu">
+                            <li><a tabindex="-1" href="/WirelessOrder/home.do?flag=grzx">个人中心</a></li>
+                            <li class="divider"></li>
+                            <li><a tabindex="-1" href="/WirelessOrder/login.do?flag=logout">退出</a></li>
+                        </ul>
+                    </li>
+
+                </ul>
+                <a class="brand" href="/WirelessOrder/home.do?flag=home"><span class="first">旅游管理</span> <span class="second">后台</span></a>
+            </div>
+        </div>
+    </div>
+</head>
+</html>

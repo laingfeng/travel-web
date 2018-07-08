@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.liang.dao.FlightMapper" >
+  <resultMap id="BaseResultMap" type="com.liang.model.Flight" >
+    <id column="flightNum" property="flightnum" jdbcType="VARCHAR" />
+    <result column="flightPrice" property="flightprice" jdbcType="INTEGER" />
+    <result column="numSeats" property="numseats" jdbcType="INTEGER" />
+    <result column="flightnumAvail" property="flightnumavail" jdbcType="INTEGER" />
+    <result column="flyDate" property="flydate" jdbcType="DATE" />
+    <result column="flyfromCity" property="flyfromcity" jdbcType="VARCHAR" />
+    <result column="flytoCity" property="flytocity" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    flightNum, flightPrice, numSeats, flightnumAvail, flyDate, flyfromCity, flytoCity
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from flight
+    where flightNum = #{flightnum,jdbcType=VARCHAR}
+  </select>
+
+  <!-- 新加-->
+  <select id="selectAll" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from flight
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from flight
+    where flightNum = #{flightnum,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.liang.model.Flight" >
+    insert into flight (flightNum, flightPrice, numSeats, 
+      flightnumAvail, flyDate, flyfromCity, 
+      flytoCity)
+    values (#{flightnum,jdbcType=VARCHAR}, #{flightprice,jdbcType=INTEGER}, #{numseats,jdbcType=INTEGER}, 
+      #{flightnumavail,jdbcType=INTEGER}, #{flydate,jdbcType=DATE}, #{flyfromcity,jdbcType=VARCHAR}, 
+      #{flytocity,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.liang.model.Flight" >
+    insert into flight
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="flightnum != null" >
+        flightNum,
+      </if>
+      <if test="flightprice != null" >
+        flightPrice,
+      </if>
+      <if test="numseats != null" >
+        numSeats,
+      </if>
+      <if test="flightnumavail != null" >
+        flightnumAvail,
+      </if>
+      <if test="flydate != null" >
+        flyDate,
+      </if>
+      <if test="flyfromcity != null" >
+        flyfromCity,
+      </if>
+      <if test="flytocity != null" >
+        flytoCity,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="flightnum != null" >
+        #{flightnum,jdbcType=VARCHAR},
+      </if>
+      <if test="flightprice != null" >
+        #{flightprice,jdbcType=INTEGER},
+      </if>
+      <if test="numseats != null" >
+        #{numseats,jdbcType=INTEGER},
+      </if>
+      <if test="flightnumavail != null" >
+        #{flightnumavail,jdbcType=INTEGER},
+      </if>
+      <if test="flydate != null" >
+        #{flydate,jdbcType=DATE},
+      </if>
+      <if test="flyfromcity != null" >
+        #{flyfromcity,jdbcType=VARCHAR},
+      </if>
+      <if test="flytocity != null" >
+        #{flytocity,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.liang.model.Flight" >
+    update flight
+    <set >
+      <if test="flightprice != null" >
+        flightPrice = #{flightprice,jdbcType=INTEGER},
+      </if>
+      <if test="numseats != null" >
+        numSeats = #{numseats,jdbcType=INTEGER},
+      </if>
+      <if test="flightnumavail != null" >
+        flightnumAvail = #{flightnumavail,jdbcType=INTEGER},
+      </if>
+      <if test="flydate != null" >
+        flyDate = #{flydate,jdbcType=DATE},
+      </if>
+      <if test="flyfromcity != null" >
+        flyfromCity = #{flyfromcity,jdbcType=VARCHAR},
+      </if>
+      <if test="flytocity != null" >
+        flytoCity = #{flytocity,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where flightNum = #{flightnum,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.liang.model.Flight" >
+    update flight
+    set flightPrice = #{flightprice,jdbcType=INTEGER},
+      numSeats = #{numseats,jdbcType=INTEGER},
+      flightnumAvail = #{flightnumavail,jdbcType=INTEGER},
+      flyDate = #{flydate,jdbcType=DATE},
+      flyfromCity = #{flyfromcity,jdbcType=VARCHAR},
+      flytoCity = #{flytocity,jdbcType=VARCHAR}
+    where flightNum = #{flightnum,jdbcType=VARCHAR}
+  </update>
+</mapper>
